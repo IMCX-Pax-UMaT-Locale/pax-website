@@ -5,7 +5,7 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
-<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"on-secondary-container": "#666600", "surface-tint": "#006685", secondary: "#626200", "on-tertiary": "#ffffff", "on-tertiary-fixed-variant": "#474646", "on-error": "#ffffff", "on-surface": "#191c20", "on-secondary-fixed": "#1d1d00", "on-primary-fixed": "#001f2a", "primary-container": "#007ea3", "secondary-fixed": "#eaea00", "on-primary-fixed-variant": "#004d65", "inverse-surface": "#2e3035", outline: "#717785", primary: "#006482", "on-error-container": "#93000a", "tertiary-fixed": "#e5e2e1", "surface-container-low": "#f2f3fa", "surface-container-highest": "#e1e2e9", "surface-dim": "#d8dae0", "primary-fixed": "#bfe9ff", "tertiary-fixed-dim": "#c9c6c5", "inverse-primary": "#6cd2ff", "surface-container-high": "#e7e8ee", background: "#f8f9ff", "secondary-container": "#e7e700", "surface-bright": "#f8f9ff", "on-surface-variant": "#414753", tertiary: "#5d5c5b", "surface-container-lowest": "#ffffff", "tertiary-container": "#767474", "error-container": "#ffdad6", "inverse-on-surface": "#eff0f7", "on-tertiary-fixed": "#1c1b1b", "on-background": "#191c20", "on-primary-container": "#fbfdff", "primary-fixed-dim": "#6cd2ff", "on-secondary": "#ffffff", "surface-container": "#ecedf4", "secondary-fixed-dim": "#cdcd00", "on-primary": "#ffffff", error: "#ba1a1a", surface: "#f8f9ff", "on-secondary-fixed-variant": "#494900", "on-tertiary-container": "#f7feff", "outline-variant": "#c1c6d5", "surface-variant": "#e1e2e9"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, spacing: {md: "24px", xl: "80px", gutter: "24px", base: "8px", sm: "12px", xs: "4px", lg: "48px", "container-max": "1200px"}, fontFamily: {"body-md": ["Inter"], caption: ["Inter"], "body-lg": ["Inter"], "headline-md": ["Playfair Display"], "headline-lg-mobile": ["Playfair Display"], "label-md": ["Inter"], "display-lg": ["Playfair Display"], "headline-lg": ["Playfair Display"], headline: ["Inter"], display: ["Inter"], body: ["Inter"], label: ["Inter"]}, fontSize: {"body-md": ["16px", {lineHeight: "1.6", fontWeight: "400"}], caption: ["12px", {lineHeight: "1.4", fontWeight: "400"}], "body-lg": ["18px", {lineHeight: "1.6", fontWeight: "400"}], "headline-md": ["24px", {lineHeight: "1.4", fontWeight: "600"}], "headline-lg-mobile": ["28px", {lineHeight: "1.3", fontWeight: "600"}], "label-md": ["14px", {lineHeight: "1.2", letterSpacing: "0.05em", fontWeight: "600"}], "display-lg": ["48px", {lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "700"}], "headline-lg": ["32px", {lineHeight: "1.3", fontWeight: "600"}]}}}};</script>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"on-secondary-container": "#666600", "surface-tint": "#006685", secondary: "#626200", "on-tertiary": "#ffff[...]
 <style>
         .glass-card {
             background: rgba(255, 255, 255, 0.7);
@@ -35,6 +35,42 @@
             transform: translateY(-2px);
             transition: all 0.3s ease;
         }
+        .team-badge {
+            display: inline-block;
+            background: #e8d81e;
+            color: #000;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .team-card {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .team-card:hover {
+            background: rgba(255, 255, 255, 0.8);
+            transform: translateY(-4px);
+        }
+        .avatar-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 16px;
+            border: 3px solid #e8d81e;
+        }
+        .teal-bg {
+            background: #007a99;
+        }
+        .teal-text {
+            color: #007a99;
+        }
     </style>
 </head><body class="bg-background text-on-background font-body-md min-h-screen">
 <!-- TopNavBar -->
@@ -45,7 +81,7 @@
 <a class="font-label-md text-label-md text-primary border-b-2 border-secondary font-bold" href="#home">Home</a>
 <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#events">Events</a>
 <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#mission">Mission</a>
-<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#departments">Departments</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#our-team">Our Team</a>
 <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#gallery">Gallery</a>
 </nav>
 <div class="flex items-center gap-md">
@@ -58,7 +94,7 @@
 <!-- Hero Section -->
 <section id="home" class="relative h-[870px] flex items-center justify-center overflow-hidden">
 <div class="absolute inset-0 z-0">
-<img alt="Student fellowship group" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLFl1o9GcBhmScjiu_jQxWDhidF5m_HQmQl9u_ks1M111BpTQMcKpbCwRa8VZMDJvAYcmlWSdXI1WRAa2tzN-zkKN2pPkpW8kQqY0b2GLidZmusjIBhHlENxMbHn1SUiedYpwWiyXE52R4SGDs3PZ6K1fF3MJgkGJX9daMZvCPBSNM4kNhQpiaPWOxejBeAOcWDDpvokGWrWkk94aAFl57oQjCvOsFQNQCHFgXQPuQbo6XknJzmStKgZi3fSlY3FaO9PYpl4kBG08">
+<img alt="Student fellowship group" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLFl1o9GcBhmScjiu_jQxWDhidF5m_HQmQl9u_ks1M111BpTQMcKpbCwRa8VZMDJvAYcmlWS[...]
 <div class="absolute inset-0 bg-gradient-to-r from-primary/80 to-transparent"></div>
 </div>
 <div class="relative z-10 w-full max-w-container-max px-gutter text-white">
@@ -68,10 +104,10 @@
 <p class="font-headline-lg text-headline-lg text-secondary-fixed mb-sm">"That Christ May Be In All"</p>
 <p class="font-body-lg text-body-lg text-white/90 italic mb-lg">Mission: Liberation For Peace</p>
 <div class="flex flex-wrap gap-md mt-lg">
-<button class="bg-secondary-container text-on-secondary-container px-lg py-md rounded-xl font-label-md text-label-md glow-hover flex items-center gap-sm" onclick="document.getElementById('events').scrollIntoView({behavior: 'smooth'})">
+<button class="bg-secondary-container text-on-secondary-container px-lg py-md rounded-xl font-label-md text-label-md glow-hover flex items-center gap-sm" onclick="document.getElementById('events').scr[...]
 <span class="material-symbols-outlined">explore</span> Explore Activities
 </button>
-<button class="border border-white/50 backdrop-blur-md hover:bg-white/10 px-lg py-md rounded-xl font-label-md text-label-md transition-all flex items-center gap-sm" onclick="document.getElementById('mission').scrollIntoView({behavior: 'smooth'})">
+<button class="border border-white/50 backdrop-blur-md hover:bg-white/10 px-lg py-md rounded-xl font-label-md text-label-md transition-all flex items-center gap-sm" onclick="document.getElementById('m[...]
 Learn Our Mission <span class="material-symbols-outlined">arrow_forward</span>
 </button>
 </div>
@@ -101,13 +137,13 @@ Learn Our Mission <span class="material-symbols-outlined">arrow_forward</span>
 <h2 class="font-headline-lg text-headline-lg text-primary">Sacred Gatherings</h2>
 <p class="text-on-surface-variant">Join our upcoming activities and spiritual programs</p>
 </div>
-<a class="text-secondary font-bold flex items-center gap-xs hover:gap-sm transition-all cursor-pointer" onclick="openSection('events-page')">View All Events <span class="material-symbols-outlined">chevron_right</span></a>
+<a class="text-secondary font-bold flex items-center gap-xs hover:gap-sm transition-all cursor-pointer" onclick="openSection('events-page')">View All Events <span class="material-symbols-outlined">che[...]
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
 <!-- Event Card 1 -->
 <div class="glass-card rounded-xl overflow-hidden group hover:-translate-y-2 transition-transform">
 <div class="h-48 relative overflow-hidden">
-<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_cipwL44gvowAA9h-cMwnurF3e2CLTlCJgRfvX_VEqKj6_QX1vQ_wIf-tj9-srY26SIBxt4oMrI6uvufDPowZBftClPTaAJpgodi0HyZ2SlbUo6l7nf-Hic_OWPSjTah08F7id95bHEETen1HVgIKGotWAARj4CfMlB84sZze-M21D2DUh2SNv-EAsfMFyP5cmrUHNrduqDFJxp_kYQAxucSp5C88B5Q3NAr2AmvzRs0C7Jc2aZwu7CgB5bLqmeyF9HBI-nAI8gQ">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_cipwL44gvowAA9h-cMwnurF3e2CLTlCJgRfvX_VEqKj6_[...]
 <div class="absolute top-4 left-4">
 <span class="bg-primary/90 text-on-primary px-sm py-xs rounded font-label-md text-label-md">24 MAY</span>
 </div>
@@ -126,7 +162,7 @@ Learn Our Mission <span class="material-symbols-outlined">arrow_forward</span>
 <!-- Event Card 2 -->
 <div class="glass-card rounded-xl overflow-hidden group hover:-translate-y-2 transition-transform">
 <div class="h-48 relative overflow-hidden">
-<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA89B3Ya4lwMcFxIBI0tOTvb8Jd4R2WhPaOoD239fLtTS0P7nKAm86xPZPS64zitHq56glIMbeP6WfHryhgTqBV3lDm97PUwcqYHjAIMuScR5kMrgbn7oPMy-ezR3jTswdr9v4oTUeN9A-qu5zt0UR9D729GYUtuooky8KahEtkpdRrE8U3TK644zh47s4JoB7ZJvMEzbDlnFsYJZEXxp58G9P8mOiOcZa2PsXm6eImiAR2Uok5vaGe0wb51hLD2anbkY9lmhCwEEo">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA89B3Ya4lwMcFxIBI0tOTvb8Jd4R2WhPaOoD239fLtTS0P7[...]
 <div class="absolute top-4 left-4">
 <span class="bg-primary/90 text-on-primary px-sm py-xs rounded font-label-md text-label-md">02 JUN</span>
 </div>
@@ -145,7 +181,7 @@ Learn Our Mission <span class="material-symbols-outlined">arrow_forward</span>
 <!-- Event Card 3 -->
 <div class="glass-card rounded-xl overflow-hidden group hover:-translate-y-2 transition-transform">
 <div class="h-48 relative overflow-hidden">
-<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEd3O_hcYQmme8NUDctwRII_Tc6p4BEZvGxzsS0OeLXSABfvBDra98HoGpfMwKozG3hTzWZ45AYYWwTerk-ok4ZVY5YSzvLcEMJ6d_VWCU9u74brRaTk1reW3B_p9Ex6qselSSoTa_bAU7_ti_9nPhJQei9DIFWiXXNhQsmtXAIynrc3tltzH8mSpi1_PqUd2F8NT65yokkQygjhrzhmCK9ifZ2zj6mmQdBLRrczDmGEgA46Jlk9wMz3ikyl4-RoBt1ssU9uAhRCU">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEd3O_hcYQmme8NUDctwRII_Tc6p4BEZvGxzsS0OeLXSABf[...]
 <div class="absolute top-4 left-4">
 <span class="bg-primary/90 text-on-primary px-sm py-xs rounded font-label-md text-label-md">15 JUN</span>
 </div>
@@ -180,43 +216,122 @@ Learn Our Mission <span class="material-symbols-outlined">arrow_forward</span>
 </div>
 </section>
 
-<!-- Quick Access Section -->
-<section class="py-xl max-w-container-max mx-auto px-gutter">
-<div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-md h-auto md:h-[500px]">
-<div class="md:col-span-2 md:row-span-2 glass-card rounded-[2rem] p-lg flex flex-col justify-end relative overflow-hidden group cursor-pointer hover:shadow-xl transition-all" onclick="openSection('about')">
-<div class="absolute top-0 right-0 p-lg">
-<span class="material-symbols-outlined text-primary/10 text-[160px]">auto_stories</span>
+<!-- Our Team Section -->
+<section id="our-team" class="bg-gray-100 py-xl">
+<div class="max-w-container-max mx-auto px-gutter">
+<!-- Introduction -->
+<div class="text-center mb-xl">
+<h2 class="text-3xl font-bold text-teal-700 mb-md">Meet the dedicated individuals serving with faith and intellect to foster spiritual growth and academic excellence within the IMCS Pax Romana UMaT community.</h2>
 </div>
-<div class="relative z-10">
-<h3 class="font-headline-lg text-headline-lg text-primary mb-sm">About Us</h3>
-<p class="text-on-surface-variant mb-lg">Discover our history, mission, and the spiritual journey of IMCS Pax Romana.</p>
-<button class="bg-primary text-on-primary px-lg py-md rounded-xl font-label-md text-label-md glow-hover w-fit">Read Our Story</button>
+
+<!-- Executive Council -->
+<div class="mb-2xl">
+<div class="flex items-center justify-between mb-lg">
+<h3 class="text-2xl font-bold teal-text">Executive Council</h3>
+<span class="material-symbols-outlined text-yellow-400 text-2xl">ecology</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+<!-- Executive Member 1 -->
+<div class="team-card">
+<img class="w-full h-64 object-cover rounded-lg mb-md" src="https://via.placeholder.com/300x400?text=Executive+1" alt="President">
+<span class="team-badge">President</span>
+<h4 class="text-lg font-bold text-gray-800 mt-sm">Emmanuel Boateng</h4>
+<div class="flex justify-center gap-md mt-md">
+<span class="material-symbols-outlined text-gray-400 cursor-pointer">person</span>
+<span class="material-symbols-outlined text-gray-400 cursor-pointer">mail</span>
 </div>
 </div>
 
-<div id="departments" class="md:col-span-2 glass-card rounded-[2rem] p-lg flex items-center gap-lg group cursor-pointer hover:bg-white/90 transition-all" onclick="openSection('departments-page')">
-<div class="bg-secondary-container/30 p-md rounded-2xl">
-<span class="material-symbols-outlined text-primary text-display-lg">account_tree</span>
-</div>
-<div>
-<h3 class="font-headline-md text-headline-md text-primary">Departments</h3>
-<p class="text-on-surface-variant">Explore our different functional groups and teams.</p>
-</div>
-</div>
-
-<div class="md:col-span-1 glass-card rounded-[2rem] p-lg flex flex-col justify-between group cursor-pointer hover:border-secondary transition-all" onclick="openSection('finance')">
-<span class="material-symbols-outlined text-secondary text-headline-lg">payments</span>
-<div>
-<h4 class="font-label-md text-label-md text-primary">Finance</h4>
-<p class="text-caption text-on-surface-variant">Dues & Contributions</p>
+<!-- Executive Member 2 -->
+<div class="team-card">
+<img class="w-full h-64 object-cover rounded-lg mb-md" src="https://via.placeholder.com/300x400?text=Executive+2" alt="Vice President">
+<span class="team-badge">Vice President</span>
+<h4 class="text-lg font-bold text-gray-800 mt-sm">Angela Mensah</h4>
+<div class="flex justify-center gap-md mt-md">
+<span class="material-symbols-outlined text-gray-400 cursor-pointer">person</span>
+<span class="material-symbols-outlined text-gray-400 cursor-pointer">mail</span>
 </div>
 </div>
 
-<div class="md:col-span-1 glass-card rounded-[2rem] p-lg flex flex-col justify-between group cursor-pointer hover:border-secondary transition-all" onclick="openSection('fun-zone')">
-<span class="material-symbols-outlined text-secondary text-headline-lg">sports_esports</span>
+<!-- Executive Member 3 -->
+<div class="team-card">
+<img class="w-full h-64 object-cover rounded-lg mb-md" src="https://via.placeholder.com/300x400?text=Executive+3" alt="General Secretary">
+<span class="team-badge">General Secretary</span>
+<h4 class="text-lg font-bold text-gray-800 mt-sm">Kofi Appiah</h4>
+<div class="flex justify-center gap-md mt-md">
+<span class="material-symbols-outlined text-gray-400 cursor-pointer">person</span>
+<span class="material-symbols-outlined text-gray-400 cursor-pointer">mail</span>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Committee Leads -->
+<div class="mb-2xl">
+<div class="flex items-center justify-between mb-lg">
+<h3 class="text-2xl font-bold teal-text">Committee Leads</h3>
+<span class="material-symbols-outlined text-yellow-400 text-2xl">eco</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-lg">
+<!-- Committee Lead 1 -->
+<div class="team-card text-center">
+<img class="avatar-circle" src="https://via.placeholder.com/120?text=SL" alt="Sarah Tetteh">
+<div class="uppercase text-xs font-bold text-teal-700 tracking-wider mb-xs">Liturgical</div>
+<h4 class="text-lg font-bold text-gray-800">Sarah Tetteh</h4>
+<p class="text-sm text-gray-600">Spiritual Growth Lead</p>
+</div>
+
+<!-- Committee Lead 2 -->
+<div class="team-card text-center">
+<img class="avatar-circle" src="https://via.placeholder.com/120?text=DO" alt="Daniel Owusu">
+<div class="uppercase text-xs font-bold text-teal-700 tracking-wider mb-xs">Finance</div>
+<h4 class="text-lg font-bold text-gray-800">Daniel Owusu</h4>
+<p class="text-sm text-gray-600">Stewardship Lead</p>
+</div>
+
+<!-- Committee Lead 3 -->
+<div class="team-card text-center">
+<img class="avatar-circle" src="https://via.placeholder.com/120?text=GA" alt="Grace Amankwah">
+<div class="uppercase text-xs font-bold text-teal-700 tracking-wider mb-xs">Outreach</div>
+<h4 class="text-lg font-bold text-gray-800">Grace Amankwah</h4>
+<p class="text-sm text-gray-600">Welfare & Mission</p>
+</div>
+
+<!-- Committee Lead 4 -->
+<div class="team-card text-center">
+<img class="avatar-circle" src="https://via.placeholder.com/120?text=JD" alt="John Doe">
+<div class="uppercase text-xs font-bold text-teal-700 tracking-wider mb-xs">Academic</div>
+<h4 class="text-lg font-bold text-gray-800">John Doe</h4>
+<p class="text-sm text-gray-600">Research & Intellect</p>
+</div>
+</div>
+</div>
+
+<!-- Department Reps -->
 <div>
-<h4 class="font-label-md text-label-md text-primary">Fun Zone</h4>
-<p class="text-caption text-on-surface-variant">Games & Activities</p>
+<div class="flex items-center justify-between mb-lg">
+<h3 class="text-2xl font-bold teal-text">Department Reps</h3>
+<span class="material-symbols-outlined text-yellow-400 text-2xl">garden_cart</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg items-center">
+<!-- Department Info -->
+<div class="bg-yellow-100 rounded-lg p-lg">
+<img class="w-full h-64 object-cover rounded-lg mb-md" src="https://via.placeholder.com/400x300?text=Engineering+Hub" alt="Engineering Hub">
+<h4 class="text-xl font-bold text-gray-800 mb-sm">Engineering Hub</h4>
+<p class="text-gray-700 mb-md">Coordinating all engineering departments with a focus on integrating technical ethics with Catholic principles.</p>
+<div class="flex flex-wrap gap-sm">
+<span class="bg-white px-sm py-xs rounded-full text-sm font-semibold text-gray-800">Mining</span>
+<span class="bg-white px-sm py-xs rounded-full text-sm font-semibold text-gray-800">Electrical</span>
+<span class="bg-white px-sm py-xs rounded-full text-sm font-semibold text-gray-800">Mechanical</span>
+</div>
+</div>
+
+<!-- Join Team CTA -->
+<div class="teal-bg text-white rounded-lg p-xl flex flex-col justify-center">
+<h3 class="text-2xl font-bold mb-md">Join the Team</h3>
+<p class="mb-lg">Passionate about serving the community? We are always looking for dedicated members to join our committees.</p>
+<button class="bg-yellow-500 text-gray-800 font-bold px-lg py-md rounded-lg hover:bg-yellow-600 transition-colors w-fit">Get Involved</button>
+</div>
 </div>
 </div>
 </div>
@@ -230,66 +345,62 @@ Learn Our Mission <span class="material-symbols-outlined">arrow_forward</span>
 </div>
 <div class="grid grid-cols-2 md:grid-cols-4 gap-sm">
 <div class="col-span-2 row-span-2 overflow-hidden rounded-xl">
-<img class="w-full h-full object-cover hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6m5zEbkrPMhCHKh86kcuI8C5-MdARI6OQOaD-2UGXj99shFDLXChm7xww7iI4df7ysV_AIwrdIx151wxn2VnhdYFDGfYKbDp_6uQjMpxN4f7DOKYNFYXLV08NQmOMKEEyM5B76SV8L1bIrIAkrii5ZXc1BCd-32q0kwiRFtMDXLL09G3tNBaHEtbZGFj10e2p4Ht2ewCD6wcyfe7OYJSmA5d60if6xbAOpWj7rEFEBOTyyM1rqVmj70KF_1ocD2JfuZgrlg_7E6A" alt="Mass celebration">
+<img class="w-full h-full object-cover hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6m5zEbkrPMhCHKh86kcuI8C5-MdARI6OQOaD-2UGXj99shFDLXCh[...]
 </div>
 <div class="overflow-hidden rounded-xl">
-<img class="w-full h-full object-cover hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBAduM6PY7-NW8p0g4QoVrEm9raHTy9R7vblKSzbzbEFAHEkxJaD_dq-M6ABp1gMaJebdp6KS71zxVIf4WQkNCCt6jlSrthL1Y0MTS01c1S5hduLgPtcCpwzQEnLFR3AubLFvsv3dLt6lNnONnjB-LT7MecjJpRSAbevordIb0W6VMAxI96qoQMITCkFsB5oZ30HBdHzW6WfVkSLEyfhX4r8fdmTNhDFOAlmu5V8L_RVGatyrwZc1mervHG_qYJPjZ7z4uMwondCQ" alt="Bible study">
+<img class="w-full h-full object-cover hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBAduM6PY7-NW8p0g4QoVrEm9raHTy9R7vblKSzbzbEFAHEkxJaD_[...]
 </div>
 <div class="overflow-hidden rounded-xl">
-<img class="w-full h-full object-cover hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7aMMH0uuWlUYXSk-BvNKuR4FSvdYZp3eRY1bd6A4wqfpBRzvF5IPEo5nKYG0a030vJMwMiMVYkpj0uUi-w5C0-GVGiN6gN-zn8jeCbzda2IbZhqxryIi7lHVTLoGpw-uAHd59PN7AwqkkgO2hJj9U6zimz52J8MqVJSvnOSXN8eQAb4ccaTBfRXo2yXxqYNM2Lp15MvAy5sl-PeJxQds8kiZ66eZsYOwldRR1EA-Ig9glpj8VtgtngdugCx_SeK8yRgzKZa7X6z4" alt="Social gathering">
+<img class="w-full h-full object-cover hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7aMMH0uuWlUYXSk-BvNKuR4FSvdYZp3eRY1bd6A4wqfpBRzvF5IP[...]
 </div>
 <div class="col-span-2 overflow-hidden rounded-xl h-48">
-<img class="w-full h-full object-cover hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQ0YVFmEgQ-jmv_Hwz1XuAQL0THCxmcCdintMve8TzSD2oK6z1NksHTZI0ZvSdWTel9YMSM8Y81hNa-82VXrT24wkARi4CoNViFJa9bmbKwNon1sX71Cjh2-vt7ObEeTmLCAjjxbr9Yl4qK_aZTUvpDIktRIbkO4hIOMAtP0rNVfkpqX41QZsbxWzz3ufIPix-VhqiDNybAoH7oykugNc17i7FdH1udljgfouPbTadv1-chHpMfLcY3DQ5lxKDNf6fmqOgRo2nuk8" alt="Community service">
+<img class="w-full h-full object-cover hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQ0YVFmEgQ-jmv_Hwz1XuAQL0THCxmcCdintMve8TzSD2oK6z1Nks[...]
 </div>
 </div>
 </section>
 </main>
 
 <!-- Footer -->
-<footer class="bg-primary text-on-primary py-xl border-t-4 border-secondary">
+<footer class="teal-bg text-white py-xl border-t-4 border-yellow-400">
 <div class="grid grid-cols-1 md:grid-cols-4 gap-lg px-gutter max-w-container-max mx-auto text-left">
 <div>
-<div class="font-headline-md text-secondary-container mb-md">IMCS Pax Romana</div>
-<p class="font-body-md text-on-primary/80 mb-lg">Serving as a light of faith and intellectual growth within the University of Mines and Technology community.</p>
+<div class="font-headline-md text-secondary-container mb-md text-yellow-400 font-bold">IMCS Pax Romana UMaT</div>
+<p class="font-body-md text-white/80 mb-lg">Serving the University of Mines and Technology community with a legacy of faith, intellect, and social liberation.</p>
 <div class="flex gap-md">
-<a class="text-secondary-container hover:text-white transition-colors" href="#"><span class="material-symbols-outlined">social_leaderboard</span></a>
-<a class="text-secondary-container hover:text-white transition-colors" href="#"><span class="material-symbols-outlined">share</span></a>
-<a class="text-secondary-container hover:text-white transition-colors" href="#"><span class="material-symbols-outlined">mail</span></a>
+<a class="text-yellow-400 hover:text-white transition-colors" href="#"><span class="material-symbols-outlined">people</span></a>
+<a class="text-yellow-400 hover:text-white transition-colors" href="#"><span class="material-symbols-outlined">share</span></a>
+<a class="text-yellow-400 hover:text-white transition-colors" href="#"><span class="material-symbols-outlined">mail</span></a>
 </div>
 </div>
 <div>
-<h4 class="font-headline-md text-headline-md text-white mb-md">Resources</h4>
-<ul class="space-y-sm font-body-md text-on-primary/80">
-<li><a class="hover:text-secondary-fixed transition-colors" href="#">Daily Readings</a></li>
-<li><a class="hover:text-secondary-fixed transition-colors" href="#">UMaT Chaplaincy</a></li>
-<li><a class="hover:text-secondary-fixed transition-colors" href="#">Sacraments</a></li>
-<li><a class="hover:text-secondary-fixed transition-colors" href="#">Liturgical Calendar</a></li>
+<h4 class="font-headline-md text-headline-md text-white mb-md">QUICK LINKS</h4>
+<ul class="space-y-sm font-body-md text-white/80">
+<li><a class="hover:text-yellow-400 transition-colors" href="#">Contact Us</a></li>
+<li><a class="hover:text-yellow-400 transition-colors" href="#">About Us</a></li>
+<li><a class="hover:text-yellow-400 transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-yellow-400 transition-colors" href="#">Spiritual Resources</a></li>
 </ul>
 </div>
 <div>
-<h4 class="font-headline-md text-headline-md text-white mb-md">Community</h4>
-<ul class="space-y-sm font-body-md text-on-primary/80">
-<li><a class="hover:text-secondary-fixed transition-colors cursor-pointer" onclick="openSection('about')">About Us</a></li>
-<li><a class="hover:text-secondary-fixed transition-colors cursor-pointer" onclick="openSection('departments-page')">Departments</a></li>
-<li><a class="hover:text-secondary-fixed transition-colors" href="#">Join IMCS</a></li>
-<li><a class="hover:text-secondary-fixed transition-colors" href="#">Contact Us</a></li>
+<h4 class="font-headline-md text-headline-md text-white mb-md">CONNECT</h4>
+<ul class="space-y-sm font-body-md text-white/80">
+<li><a class="hover:text-yellow-400 transition-colors" href="#">Daily Readings</a></li>
+<li><a class="hover:text-yellow-400 transition-colors" href="#">UMaT Chaplaincy</a></li>
+<li><a class="hover:text-yellow-400 transition-colors" href="#">Join IMCS</a></li>
+<li><a class="hover:text-yellow-400 transition-colors" href="#">Events</a></li>
 </ul>
 </div>
 <div>
 <h4 class="font-headline-md text-headline-md text-white mb-md">Newsletter</h4>
-<p class="font-body-md text-on-primary/80 mb-md">Stay updated with our weekly spiritual bulletins.</p>
+<p class="font-body-md text-white/80 mb-md">Stay updated with our weekly spiritual bulletins.</p>
 <div class="flex">
-<input class="bg-white/10 border border-white/20 rounded-l-lg px-md py-sm w-full focus:outline-none focus:border-secondary transition-colors" placeholder="Your email" type="email">
-<button class="bg-secondary text-on-primary px-md rounded-r-lg font-bold">Join</button>
+<input class="bg-white/10 border border-white/20 rounded-l-lg px-md py-sm w-full focus:outline-none focus:border-yellow-400 transition-colors text-white" placeholder="Your email" type="email">
+<button class="bg-yellow-500 text-gray-800 px-md rounded-r-lg font-bold hover:bg-yellow-600">Join</button>
 </div>
 </div>
 </div>
 <div class="max-w-container-max mx-auto px-gutter mt-xl pt-lg border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-md">
-<p class="font-body-md text-on-primary/60">© 2024 IMCS Pax Romana UMaT. Serving with Faith and Intellect.</p>
-<div class="flex gap-lg font-label-md text-label-md text-on-primary/60">
-<a class="hover:text-white transition-colors" href="#">Privacy Policy</a>
-<a class="hover:text-white transition-colors" href="#">Terms of Use</a>
-</div>
+<p class="font-body-md text-white/60">© 2024 IMCS Pax Romana UMaT. Serving with Faith and Intellect.</p>
 </div>
 </footer>
 
