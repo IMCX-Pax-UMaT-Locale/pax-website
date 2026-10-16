@@ -20,14 +20,14 @@ const logo = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/pax%20logo
 const slides = [
   {
     image:
-      'https://images.unsplash.com/photo-1548625361-58a7d65e0b7f?auto=format&fit=crop&w=1800&q=85',
+      '/gathering.jpeg',
     eyebrow: 'One family. One mission.',
     title: 'Liberation for peace.',
     body: 'Welcome to the home of young Catholic professionals growing in faith, friendship, and service.',
   },
   {
     image:
-      'https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=1800&q=85',
+      '/gathering.jpeg',
     eyebrow: 'Faith in action',
     title: 'We are better together.',
     body: 'Build lasting friendships and serve the church with purpose through IMCS-PAX Romana.',
@@ -66,39 +66,40 @@ const events = [
   },
 ]
 const executives = [
-  ['Divine Mwinbegureh Bonu-Ire', 'President', '/Executives/Bonu-Ire Divine Mwinbegureh President.jpg'],
-  ['Kitsi Desmond Dan-Jerry', 'Vice President', '/Executives/Kissi Desmond Dan-Jerry.jpg'],
-  ['Santa Marrius Mwinekuma Tambaah', 'Catechist', '/Executives/Santa Marrius.jpeg'],
-  ['Batoe Richmond', 'Assistant Catechist', '/Executives/Batoe Richmond Outreach Coordinator.jpg'],
-  ['Irene Yankey', 'General Secretary', '/Executives/Irene Yankey General Secretary.jpg'],
-  ['Gifty Wilson', 'Assistant General Secretary', '/Executives/Wilson Gifty.jpg'],
-  ['Emelia Prah', 'Wocom', '/Executives/Emelia Prah.png'],
-  ['Monique Male Malenuba', 'Assistant Wocom', '/Executives/Monique Marla.jpeg'],
-  ['Mawinbe Thomas Mbamondor', 'Organising Secretary', '/Executives/Mawinbe Thomas Organising Secretary.jpg'],
-  ['Segkpeb Dorcas', 'Assistant Organising Secretary', '/Executives/Dorcas.jpg'],
-  ['Marcia Aku Mensah', 'Financial Secretary', '/Executives/Marcia.jpeg'],
-  ['Agbesi Emmaculate Klenam Esi', 'Treasurer', '/Executives/Mavis.jpeg'],
-  ['Kalayi-Tetteh Benjamin', 'Prayer Secretary', '/Executives/Kalayi Benjamin Tetteh Prayer Secretary.jpg'],
-  ['Apotiga Mcloyd Winesongeya', 'Publicity Officer', '/Executives/Apotiga Mcloyd Winesongeya Publicity Head.jpg'],
-  ['Nana Akosua Panyin Ebbin', 'Assistant Publicity Officer', '/Executives/Ebbin Nana Akosua Deputy Publicity Head.jpg'],
-  ['Atta Augustine Tuffour', 'Outreach Coordinator', '/Executives/Augustine Atta Tuffour.jpeg'],
-  ['Zerubabel Tanoe', 'Assistant Outreach Coordinator', '/Executives/Zerubabel.jpeg'],
-  ['Domayele Brian-Louis Song-Noma', 'Music Director', '/Executives/Brian-Louis.jpeg'],
-  ['Perpetual Kwegyir-Abaidoo', 'Choir President', '/Executives/Perpetual.jpeg'],
-  ['Kpieonoma Irene Mwinengkoma', 'Heavenly Jewels President', '/Executives/Irene k.jpg'],
-  ['Boye-Doe Godsway', 'Lectors Head', '/Executives/Boye-Doe.jpeg'],
-  ['Osei Joshua Kwadwo Gyau', 'Mass Servers President', '/Executives/Joshua Osie.jpg'],
-  ['Joseph Kwame Ketedzi', 'CCR Coordinator', '/Executives/Ketedzi Joseph Kwame ITI-CCR Coordinator.jpg'],
-  ['Frank Sombawira', 'Technical Head', '/Executives/lawrencia.jpg'],
-  ['Buamah Mavis Eyram', 'Arts and Drama President', '/Executives/Mavis.jpeg'],
-  ['Nana Ama Ampong', 'Ushering Head', '/Executives/Abobo Maximillian Kolbe SCC Rep.jpg'],
-  ['Samuel Obrempong Afriyie', 'Legion of Mary President', '/Executives/Obrempong.jpeg'],
-].map(([name, role, image]) => ({
+  ['Divine Mwinbegureh Bonu-Ire', 'President','Geomatics Engineering', '/Executives/Bonu-Ire Divine Mwinbegureh President.jpg','0000000000'],
+  ['Kitsi Desmond Dan-Jerry', 'Vice President','NA', '/Executives/Kissi Desmond Dan-Jerry.jpg'],
+  ['Santa Marrius Mwinekuma Tambaah', 'Catechist','NA', '/Executives/Santa Marrius.jpeg'],
+  ['Batoe Richmond', 'Assistant Catechist', 'NA','/Executives/Batoe Richmond Outreach Coordinator.jpg'],
+  ['Irene Yankey', 'General Secretary','NA', '/Executives/Irene Yankey General Secretary.jpg'],
+  ['Gifty Wilson', 'Assistant General Secretary', 'NA','/Executives/Wilson Gifty.jpg'],
+  ['Emelia Prah', 'Wocom', 'NA','/Executives/Emelia Prah.png'],
+  ['Monique Male Malenuba', 'Assistant Wocom','NA', '/Executives/Monique Marla.jpeg'],
+  ['Mawinbe Thomas Mbamondor', 'Organising Secretary','NA', '/Executives/Mawinbe Thomas Organising Secretary.jpg'],
+  ['Segkpeb Dorcas', 'Assistant Organising Secretary', 'NA','/Executives/Dorcas.jpg'],
+  ['Marcia Aku Mensah', 'Financial Secretary', 'NA','/Executives/Marcia.jpeg'],
+  ['Agbesi Emmaculate Klenam Esi', 'Treasurer','NA', '/Executives/Mavis.jpeg'],
+  ['Kalayi-Tetteh Benjamin', 'Prayer Secretary','NA', '/Executives/Kalayi Benjamin Tetteh Prayer Secretary.jpg'],
+  ['Apotiga Mcloyd Winesongeya', 'Publicity Officer','Mining Engineering', '/Executives/Apotiga Mcloyd Winesongeya Publicity Head.jpg'],
+  ['Nana Akosua Panyin Ebbin', 'Assistant Publicity Officer','Geological Engineering', '/Executives/Ebbin Nana Akosua Deputy Publicity Head.jpg'],
+  ['Atta Augustine Tuffour', 'Outreach Coordinator','NA', '/Executives/Augustine Atta Tuffour.jpeg'],
+  ['Zerubabel Tanoe', 'Assistant Outreach Coordinator','NA', '/Executives/Zerubabel.jpeg'],
+  ['Domayele Brian-Louis Song-Noma', 'Music Director','NA', '/Executives/Brian-Louis.jpeg'],
+  ['Perpetual Kwegyir-Abaidoo', 'Choir President','NA', '/Executives/Perpetual.jpeg'],
+  ['Kpieonoma Irene Mwinengkoma', 'Heavenly Jewels President','Renewal Energy Eng.', '/Executives/Irene k.jpg'],
+  ['Boye-Doe Godsway', 'Lectors Head','NA', '/Executives/Boye-Doe.jpeg'],
+  ['Osei Joshua Kwadwo Gyau', 'Mass Servers President','Mining Engineering', '/Executives/Joshua Osie.jpg'],
+  ['Joseph Kwame Ketedzi', 'CCR Coordinator','Electrical & Electronics Eng.', '/Executives/Ketedzi Joseph Kwame ITI-CCR Coordinator.jpg'],
+  ['Frank Sombawira', 'Technical Head', 'Geomatics Engineering','/Executives/lawrencia.jpg'],
+  ['Buamah Mavis Eyram', 'Arts and Drama President','Mechanical Engineering', '/Executives/Mavis.jpeg'],
+  ['Abobo Maximillian Kolbe', 'SCC Rep','Statistical Data Science', '/Executives/Abobo Maximillian Kolbe SCC Rep.jpg'],
+  ['Samuel Obrempong Afriyie', 'Legion of Mary President','NA', '/Executives/Obrempong.jpeg'],
+].map(([name, role,program, image, contact]) => ({
   name,
   role,
   year: '2026 – 2027',
-  program: 'UMaT Local',
+  program,
   image,
+  contact
 }))
 
 function Heading({
@@ -164,7 +165,7 @@ export default function Page() {
           <a href="#alumni">Alumni</a>
           <a href="#give">Give</a>
           <a href="/register">Join Us</a>
-          <a className="nav-login" href="/login">
+          <a className="nav-login" href="/login" hidden>
             Member login <ArrowRight size={15} />
           </a>
         </nav>
@@ -325,7 +326,7 @@ export default function Page() {
                 <h3>{person.name}</h3>
                 <p>{person.program} · {person.year}</p>
                 <span className="executive-contact">
-                  <MessageCircle size={15} /> Contact via chapter office
+                  <MessageCircle size={15} /> {person.contact}
                 </span>
               </div>
             </article>

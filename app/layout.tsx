@@ -3,7 +3,7 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'IMCS-PAX Romana UMaT Local | Liberation for Peace',
+  title: 'IMCS-PAX Romana UMaT Local',
   description: 'A Catholic movement for students and young professionals growing in faith, friendship, and service.',
   generator: 'Achilles Deyeni',
   icons: {
