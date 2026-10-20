@@ -13,8 +13,11 @@ export async function POST(request: Request) {
   if (event.type === 'checkout.session.completed' || event.type === 'checkout.session.async_payment_succeeded') {
     const session = event.data.object as Stripe.Checkout.Session
     if (session.payment_status === 'paid' && session.amount_total && session.id) {
-      const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, { auth: { autoRefreshToken: false, persistSession: false } })
-      await supabase.from('donations').upsert({ amount: session.amount_total, currency: session.currency || 'ngn', status: 'paid', stripe_session_id: session.id }, { onConflict: 'stripe_session_id' })
+      const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+      if (!serviceRoleKey) return NextResponse.json({ error: 'Missing Supabase server configuration.' }, { status: 500 })
+      const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, serviceRoleKey, { auth: { autoRefreshToken: false, persistSession: false } })
+      const { error } = await supabase.from('donations').upsert({ amount: session.amount_total, currency: session.currency || 'ngn', status: 'paid', stripe_session_id: session.id }, { onConflict: 'stripe_session_id' })
+      if (error) return NextResponse.json({ error: 'Could not save donation.' }, { status: 500 })
     }
   }
   return NextResponse.json({ received: true })

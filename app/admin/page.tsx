@@ -1,10 +1,18 @@
-﻿import { CalendarDays, ChevronRight, ImagePlus, LayoutDashboard, Settings, Users, WalletCards } from 'lucide-react'
+import { CalendarDays, ChevronRight, ImagePlus, LayoutDashboard, Settings, Users, WalletCards } from 'lucide-react'
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
+import { createClient } from '@/lib/supabase/server'
 
-const rows = [
-  { name: 'Ifeoma Nwosu', email: 'ifeoma@example.com', chapter: 'Lagos', status: 'Active' },
-  { name: 'Daniel Okafor', email: 'daniel@example.com', chapter: 'Abuja', status: 'Active' },
-  { name: 'Chinonso Eze', email: 'chinonso@example.com', chapter: 'Enugu', status: 'Alumni' },
-]
+type ProfileRow = {
+  id: string
+  first_name: string
+  last_name: string
+  contact_info: string | null
+  role: 'member' | 'alumni' | 'admin'
+  created_at: string
+}
+
+type EventRow = { title: string; starts_at: string; venue: string; city: string | null }
 
 const adminNavLinks = [
   { label: 'Overview', href: '/admin', icon: LayoutDashboard, active: true },
@@ -15,125 +23,65 @@ const adminNavLinks = [
   { label: 'Settings', href: '#settings', icon: Settings },
 ]
 
-const stats = [
-  { label: 'Total members', value: '1,248', detail: '+8.2% this month' },
-  { label: 'Upcoming events', value: '08', detail: '3 need attention' },
-  { label: 'Alumni community', value: '384', detail: '24 new this year' },
-  { label: 'Giving this month', value: '₦2.4m', detail: '+14.6% vs July' },
-]
-
-function StatCard({ label, value, detail }: { label: string; value: string; detail: string }) {
-  return (
-    <div>
-      <span>{label}</span>
-      <strong>{value}</strong>
-      <small>{detail}</small>
-    </div>
-  )
+function formatDate(date: string) {
+  return new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric' }).format(new Date(date))
 }
 
-export default function AdminPage() {
+export default async function AdminPage() {
+  const supabase = createClient(await cookies())
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) redirect('/login')
+
+  const { data: currentProfile, error: currentProfileError } = await supabase
+    .from('profiles').select('role').eq('id', user.id).single()
+  if (currentProfileError || currentProfile?.role !== 'admin') redirect('/member')
+
+  const [profilesResult, eventsResult, donationsResult] = await Promise.all([
+    supabase.from('profiles').select('id, first_name, last_name, contact_info, role, created_at', { count: 'exact' }).order('created_at', { ascending: false }).limit(5),
+    supabase.from('events').select('title, starts_at, venue, city').eq('status', 'published').gte('starts_at', new Date().toISOString()).order('starts_at').limit(5),
+    supabase.from('donations').select('amount').eq('status', 'paid'),
+  ])
+
+  if (profilesResult.error || eventsResult.error || donationsResult.error) {
+    throw new Error('Unable to load admin dashboard data.')
+  }
+
+  const profiles = (profilesResult.data || []) as ProfileRow[]
+  const events = (eventsResult.data || []) as EventRow[]
+  const donations = donationsResult.data || []
+  const totalGiving = donations.reduce((sum, donation) => sum + Number(donation.amount), 0)
+
   return (
     <main className="admin-page">
       <header className="admin-header">
-        <a className="brand" href="/">
-          <img
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/pax-zSl5nZpSKwiZozwALkXHLvfNU1ObRp.jpg"
-            alt="IMCS-PAX Romana logo"
-          />
-          <span>
-            <strong>IMCS</strong>
-            <small>PAX ROMANA</small>
-          </span>
-        </a>
-
+        <a className="brand" href="/"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/pax-zSl5nZpSKwiZozwALkXHLvfNU1ObRp.jpg" alt="IMCS-PAX Romana logo" /><span><strong>IMCS</strong><small>PAX ROMANA</small></span></a>
         <span className="admin-title">Admin console</span>
-
-        <a href="/" className="text-link">
-          View site <ChevronRight size={15} />
-        </a>
+        <a href="/" className="text-link">View site <ChevronRight size={15} /></a>
       </header>
-
       <div className="admin-layout">
-        <aside className="admin-nav">
-          <span className="portal-label">Manage</span>
-
-          {adminNavLinks.map(({ label, href, icon: Icon, active }) => (
-            <a key={label} className={active ? 'selected' : ''} href={href}>
-              <Icon size={17} /> {label}
-            </a>
-          ))}
-        </aside>
-
+        <aside className="admin-nav"><span className="portal-label">Manage</span>{adminNavLinks.map(({ label, href, icon: Icon, active }) => <a key={label} className={active ? 'selected' : ''} href={href}><Icon size={17} /> {label}</a>)}</aside>
         <section className="admin-content">
-          <p className="eyebrow">Monday, August 25, 2026</p>
+          <p className="eyebrow">{new Intl.DateTimeFormat('en', { dateStyle: 'full' }).format(new Date())}</p>
           <h1>Good morning, admin.</h1>
-
           <div className="admin-stats">
-            {stats.map((stat) => (
-              <StatCard key={stat.label} label={stat.label} value={stat.value} detail={stat.detail} />
-            ))}
+            <div><span>Total members</span><strong>{profilesResult.count ?? '—'}</strong><small>Registered profiles</small></div>
+            <div><span>Upcoming events</span><strong>{events.length}</strong><small>Published events</small></div>
+            <div><span>Alumni community</span><strong>{profiles.filter((profile) => profile.role === 'alumni').length}</strong><small>In recent members</small></div>
+            <div><span>Giving recorded</span><strong>₦{(totalGiving / 100).toLocaleString()}</strong><small>Paid donations</small></div>
           </div>
-
           <div className="admin-grid">
             <div className="admin-panel" id="members">
-              <div className="panel-head">
-                <div>
-                  <p className="eyebrow">People</p>
-                  <h2>Recent members</h2>
-                </div>
-
-                <a className="text-link" href="#members">
-                  View all <ChevronRight size={15} />
-                </a>
-              </div>
-
+              <div className="panel-head"><div><p className="eyebrow">People</p><h2>Recent members</h2></div><a className="text-link" href="#members">View all <ChevronRight size={15} /></a></div>
               <div className="member-table">
-                {rows.map((row) => (
-                  <div className="member-row" key={row.email}>
-                    <div className="avatar">
-                      {row.name
-                        .split(' ')
-                        .map((part) => part[0])
-                        .join('')}
-                    </div>
-
-                    <div>
-                      <strong>{row.name}</strong>
-                      <small>{row.email}</small>
-                    </div>
-
-                    <span>{row.chapter}</span>
-                    <b className={row.status === 'Alumni' ? 'status alumni' : 'status active'}>
-                      {row.status}
-                    </b>
-                  </div>
-                ))}
+                {profiles.map((profile) => {
+                  const name = `${profile.first_name} ${profile.last_name}`.trim() || 'Unnamed member'
+                  return <div className="member-row" key={profile.id}><div className="avatar">{name.split(' ').map((part) => part[0]).join('')}</div><div><strong>{name}</strong><small>{profile.contact_info || 'No community details'}</small></div><span>{profile.role}</span><b className={profile.role === 'alumni' ? 'status alumni' : 'status active'}>{profile.role}</b></div>
+                })}
               </div>
             </div>
-
             <div className="admin-panel" id="events">
-              <div className="panel-head">
-                <div>
-                  <p className="eyebrow">Programmes</p>
-                  <h2>Upcoming schedule</h2>
-                </div>
-              </div>
-
-              <div className="mini-list">
-                <div>
-                  <strong>National Pax Conference</strong>
-                  <small>Sep 14 · UMaT Campus</small>
-                </div>
-                <div>
-                  <strong>Pax-Sice: The Table</strong>
-                  <small>Oct 03 · Ikeja</small>
-                </div>
-                <div>
-                  <strong>Community Mass</strong>
-                  <small>Oct 18 · Chaplaincy</small>
-                </div>
-              </div>
+              <div className="panel-head"><div><p className="eyebrow">Programmes</p><h2>Upcoming schedule</h2></div></div>
+              <div className="mini-list">{events.length === 0 && <p className="auth-muted">No upcoming published events.</p>}{events.map((event) => <div key={`${event.title}-${event.starts_at}`}><strong>{event.title}</strong><small>{formatDate(event.starts_at)} · {event.venue}{event.city ? `, ${event.city}` : ''}</small></div>)}</div>
             </div>
           </div>
         </section>

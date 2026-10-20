@@ -32,15 +32,13 @@ export default function OnboardingPage() {
     }
 
     const year = Number(graduationYear)
-    const role = year && new Date().getFullYear() - year >= 4 ? 'alumni' : 'member'
-
     const { error: updateError } = await supabase
       .from('profiles')
       .update({
+        contact_info: `${chapter}, ${city}`,
         program,
         graduation_year: year,
         onboarding_complete: true,
-        role,
         updated_at: new Date().toISOString(),
       })
       .eq('id', user.id)

@@ -40,21 +40,8 @@ export const metadata: Metadata = {
     images: ['/pax-logo.png'],
   },
   icons: {
-    icon: [
-      {
-        url: '/pax-logo.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/pax-logo.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/pax-logo.png',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
+    icon: '/icon.png',
+    apple: '/icon.png',
   },
 }
 
