@@ -65,9 +65,11 @@ create table public.donations (
   id uuid primary key default gen_random_uuid(),
   donor_id uuid references public.profiles (id) on delete set null,
   amount bigint not null check (amount > 0),
-  currency text not null default 'ngn' check (char_length(currency) = 3),
+  currency text not null default 'ghs' check (char_length(currency) = 3),
   status public.donation_status not null default 'pending',
   stripe_session_id text unique,
+  hubtel_reference text unique,
+  provider_response jsonb,
   created_at timestamptz not null default timezone('utc', now()),
   updated_at timestamptz not null default timezone('utc', now())
 );

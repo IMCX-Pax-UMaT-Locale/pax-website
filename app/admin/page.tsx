@@ -67,7 +67,7 @@ export default async function AdminPage() {
             <div><span>Total members</span><strong>{profilesResult.count ?? '—'}</strong><small>Registered profiles</small></div>
             <div><span>Upcoming events</span><strong>{events.length}</strong><small>Published events</small></div>
             <div><span>Alumni community</span><strong>{profiles.filter((profile) => profile.role === 'alumni').length}</strong><small>In recent members</small></div>
-            <div><span>Giving recorded</span><strong>₦{(totalGiving / 100).toLocaleString()}</strong><small>Paid donations</small></div>
+            <div><span>Giving recorded</span><strong>{new Intl.NumberFormat('en-GH', { style: 'currency', currency: 'GHS' }).format(totalGiving / 100)}</strong><small>Paid donations</small></div>
           </div>
           <div className="admin-grid">
             <div className="admin-panel" id="members">
