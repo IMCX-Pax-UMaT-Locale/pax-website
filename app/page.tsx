@@ -89,7 +89,7 @@ const executives = [
   ['Boye-Doe Godsway', 'Lectors Head','NA', '/Executives/Boye-Doe.jpeg'],
   ['Osei Joshua Kwadwo Gyau', 'Mass Servers President','Mining Engineering', '/Executives/Joshua Osie.jpg'],
   ['Joseph Kwame Ketedzi', 'CCR Coordinator','Electrical & Electronics Eng.', '/Executives/Ketedzi Joseph Kwame ITI-CCR Coordinator.jpg'],
-  ['Frank Sombawira', 'Technical Head', 'Geomatics Engineering','/Executives/lawrencia.jpg'],
+  ['Frank Sombawira', 'Technical Head', 'Geomatics Engineering','/Executives/Frank Sombaweira.jpg'],
   ['Buamah Mavis Eyram', 'Arts and Drama President','Mechanical Engineering', '/Executives/Mavis.jpeg'],
   ['Abobo Maximillian Kolbe', 'SCC Rep','Statistical Data Science', '/Executives/Abobo Maximillian Kolbe SCC Rep.jpg'],
   ['Samuel Obrempong Afriyie', 'Legion of Mary President','NA', '/Executives/Obrempong.jpeg'],
