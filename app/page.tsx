@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react'
 import {
   ArrowRight,
-  CalendarDays,
   ChevronLeft,
   ChevronRight,
   Clock3,
@@ -17,7 +16,7 @@ import {
 } from 'lucide-react'
 
 const logo = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/pax%20logo.png-dw6BCp3diDo34jMOdKbpKIZnjNDXzI.jpeg'
-const slides = [
+const fallbackSlides = [
   {
     image:
       '/gathering.jpeg',
@@ -33,38 +32,6 @@ const slides = [
     body: 'Build lasting friendships and serve the church with purpose through IMCS-PAX Romana.',
   },
 ]
-const events = [
-  {
-    month: 'SEP',
-    day: '14',
-    type: 'Conference',
-    title: 'National Pax Conference 2026',
-    detail: 'A weekend of formation, fellowship, and a renewed commitment to peace.',
-    place: 'UMaT Campus, Tarkwa',
-    time: 'Fri, Sep 14 · 4:00 PM',
-    tone: 'blue',
-  },
-  {
-    month: 'OCT',
-    day: '03',
-    type: 'Fellowship',
-    title: 'Pax-Sice: The Table',
-    detail: 'An evening of food, honest conversation, and community for every member.',
-    place: 'UMaT Catholic Chaplaincy',
-    time: 'Sat, Oct 03 · 5:30 PM',
-    tone: 'yellow',
-  },
-  {
-    month: 'OCT',
-    day: '18',
-    type: 'Formation',
-    title: 'UMaT Community Mass',
-    detail: 'Our monthly service and reflection for the IMCS-PAX Romana community.',
-    place: 'UMaT Catholic Chaplaincy',
-    time: 'Sun, Oct 18 · 10:00 AM',
-    tone: 'blue',
-  },
-]
 const executives = [
   ['Divine Mwinbegureh Bonu-Ire', 'President','Geomatics Engineering', '/Executives/Bonu-Ire Divine Mwinbegureh President.jpg','0000000000'],
   ['Kitsi Desmond Dan-Jerry', 'Vice President','NA', '/Executives/Kissi Desmond Dan-Jerry.jpg'],
@@ -73,7 +40,7 @@ const executives = [
   ['Irene Yankey', 'General Secretary','NA', '/Executives/Irene Yankey General Secretary.jpg'],
   ['Gifty Wilson', 'Assistant General Secretary', 'NA','/Executives/Wilson Gifty.jpg'],
   ['Emelia Prah', 'Wocom', 'NA','/Executives/Emelia Prah.png'],
-  ['Monique Male Malenuba', 'Assistant Wocom','NA', '/Executives/Monique Marla.jpeg'],
+  ['Maalinuba Marly Monique', 'Assistant Wocom','NA', '/Executives/Monique Marla.jpeg'],
   ['Mawinbe Thomas Mbamondor', 'Organising Secretary','NA', '/Executives/Mawinbe Thomas Organising Secretary.jpg'],
   ['Segkpeb Dorcas', 'Assistant Organising Secretary', 'NA','/Executives/Dorcas.jpg'],
   ['Marcia Aku Mensah', 'Financial Secretary', 'NA','/Executives/Marcia.jpeg'],
@@ -92,6 +59,7 @@ const executives = [
   ['Frank Sombawira', 'Technical Head', 'Geomatics Engineering','/Executives/Frank Sombaweira.jpg'],
   ['Buamah Mavis Eyram', 'Arts and Drama President','Mechanical Engineering', '/Executives/Mavis.jpeg'],
   ['Abobo Maximillian Kolbe', 'SCC Rep','Statistical Data Science', '/Executives/Abobo Maximillian Kolbe SCC Rep.jpg'],
+  ['Asare Lawrencia Nana Konadu', 'SCC Rep','NA', '/Executives/lawrencia.jpg'],
   ['Samuel Obrempong Afriyie', 'Legion of Mary President','NA', '/Executives/Obrempong.jpeg'],
 ].map(([name, role,program, image, contact]) => ({
   name,
@@ -131,6 +99,19 @@ function Heading({
 export default function Page() {
   const [active, setActive] = useState(0)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [events, setEvents] = useState<{
+    id: string
+    month: string
+    day: string
+    type: string
+    title: string
+    detail: string
+    place: string
+    time: string
+    tone: 'blue' | 'yellow'
+  }[]>([])
+  const [slides, setSlides] = useState(fallbackSlides)
+  const [announcement, setAnnouncement] = useState('Next service: Sunday, 7:00 AM at St. John the Evangelist Church, Brahabebome')
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -138,13 +119,63 @@ export default function Page() {
     }, 7000)
 
     return () => clearInterval(timer)
+  }, [slides.length])
+
+  useEffect(() => {
+    fetch('/api/media')
+      .then((response) => response.ok ? response.json() : Promise.reject(new Error('Unable to load media')))
+      .then(({ media }) => {
+        if (Array.isArray(media) && media.length > 0) {
+          setSlides(media.map((item: { image_url: string; alt_text: string; title: string }) => ({
+            image: item.image_url,
+            eyebrow: 'IMCS-PAX Romana',
+            title: item.title,
+            body: item.alt_text,
+          })))
+          setActive(0)
+        }
+      })
+      .catch(() => undefined)
+  }, [])
+
+  useEffect(() => {
+    fetch('/api/site-settings')
+      .then((response) => response.ok ? response.json() : Promise.reject(new Error('Unable to load site settings')))
+      .then(({ settings }) => {
+        if (settings?.announcement_text) setAnnouncement(settings.announcement_text)
+      })
+      .catch(() => undefined)
+  }, [])
+
+  useEffect(() => {
+    fetch('/api/events', { cache: 'no-store' })
+      .then((response) => response.ok ? response.json() : Promise.reject(new Error('Unable to load events')))
+      .then(({ events: publishedEvents }) => {
+        if (Array.isArray(publishedEvents)) {
+          setEvents(publishedEvents.map((event: { id: string; title: string; event_type: string; description: string | null; starts_at: string; venue: string; city: string | null }, index: number) => {
+            const date = new Date(event.starts_at)
+            return {
+              id: event.id,
+              month: new Intl.DateTimeFormat('en', { month: 'short' }).format(date).toUpperCase(),
+              day: date.getDate().toString().padStart(2, '0'),
+              type: event.event_type,
+              title: event.title,
+              detail: event.description || 'Join the IMCS-PAX Romana community for this upcoming programme.',
+              place: `${event.venue}${event.city ? `, ${event.city}` : ''}`,
+              time: new Intl.DateTimeFormat('en', { dateStyle: 'medium', timeStyle: 'short' }).format(date),
+              tone: index % 2 === 0 ? 'blue' : 'yellow',
+            }
+          }))
+        }
+      })
+      .catch(() => undefined)
   }, [])
 
   const slide = slides[active]
   return (
     <main>
       <div className="announcement">
-        <span>Next service: Sunday, 7:00 AM at St. John the Evangelist Church, Brahabebome</span>
+        <span>{announcement}</span>
         <a href="#activities">
           View activities <ArrowRight size={14} />
         </a>
@@ -271,8 +302,9 @@ export default function Page() {
           action="See all events"
         />
         <div className="event-grid">
+          {events.length === 0 && <p className="auth-muted">No upcoming events have been published yet.</p>}
           {events.map((event) => (
-            <article className="event-card" key={event.title}>
+            <article className="event-card" key={event.id}>
               <div className={`date-tile ${event.tone}`}>
                 <span>{event.month}</span>
                 <strong>{event.day}</strong>
@@ -291,22 +323,6 @@ export default function Page() {
               </button>
             </article>
           ))}
-        </div>
-      </section>
-
-      <section className="activity-band" id="activities">
-        <div>
-          <p className="eyebrow light">Every Sunday</p>
-          <h2>Rooted in worship.<br /><em>Ready for the world.</em></h2>
-        </div>
-        <div className="service-card">
-          <div className="service-icon"><CalendarDays /></div>
-          <div>
-            <span>Church activity</span>
-            <h3>Sunday Community Mass</h3>
-            <p>UMaT Catholic Chaplaincy · Every Sunday at 10:00 AM</p>
-          </div>
-          <ArrowRight size={19} />
         </div>
       </section>
 

@@ -19,7 +19,8 @@ export default function LoginPage() {
     const email = String(form.get('email') || '').trim()
     const password = String(form.get('password') || '')
 
-    const { error: signInError } = await createClient().auth.signInWithPassword({
+    const supabase = createClient()
+    const { error: signInError } = await supabase.auth.signInWithPassword({
       email,
       password,
     })
@@ -30,6 +31,14 @@ export default function LoginPage() {
         : 'Invalid email or password.'
 
       setError(authMessage)
+      setLoading(false)
+      return
+    }
+
+    const { data: profile } = await supabase.from('profiles').select('is_active').eq('id', (await supabase.auth.getUser()).data.user?.id || '').single()
+    if (profile?.is_active === false) {
+      await supabase.auth.signOut()
+      setError('This account has been deactivated. Please contact an administrator.')
       setLoading(false)
       return
     }

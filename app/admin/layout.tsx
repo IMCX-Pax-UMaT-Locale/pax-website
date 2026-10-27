@@ -1,7 +1,10 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Admin',
+  title: {
+    default: 'Admin console',
+    template: '%s | Admin console',
+  },
   robots: {
     index: false,
     follow: false,

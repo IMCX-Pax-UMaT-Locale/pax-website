@@ -95,7 +95,10 @@ export default function MemberPage() {
       }
 
       setProfile(profileResult.data)
-      setRegistrations((registrationsResult.data || []) as Registration[])
+      setRegistrations((registrationsResult.data || []).map((registration) => ({
+        status: registration.status,
+        events: Array.isArray(registration.events) ? registration.events[0] || null : registration.events,
+      })) as Registration[])
       setAttendedCount(attendedResult.count || 0)
     }
 

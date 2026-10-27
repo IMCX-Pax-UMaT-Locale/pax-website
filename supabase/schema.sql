@@ -17,6 +17,7 @@ create table public.profiles (
   program text,
   graduation_year integer check (graduation_year between 1950 and 2100),
   role public.profile_role not null default 'member',
+  is_active boolean not null default true,
   onboarding_complete boolean not null default false,
   avatar_url text,
   created_at timestamptz not null default timezone('utc', now()),
@@ -74,11 +75,39 @@ create table public.donations (
   updated_at timestamptz not null default timezone('utc', now())
 );
 
+create table public.site_settings (
+  key text primary key,
+  value text not null default '',
+  updated_by uuid references public.profiles (id) on delete set null,
+  updated_at timestamptz not null default timezone('utc', now())
+);
+
+create type public.admin_invitation_status as enum ('pending', 'accepted', 'declined', 'expired');
+
+create table public.admin_invitations (
+  id uuid primary key default gen_random_uuid(),
+  member_id uuid not null references public.profiles (id) on delete cascade,
+  invited_by uuid not null references public.profiles (id) on delete cascade,
+  email text not null,
+  status public.admin_invitation_status not null default 'pending',
+  expires_at timestamptz not null default timezone('utc', now()) + interval '7 days',
+  responded_at timestamptz,
+  created_at timestamptz not null default timezone('utc', now()),
+  constraint admin_invitation_member_email check (char_length(email) > 3)
+);
+
+create unique index admin_invitations_pending_member_idx
+on public.admin_invitations (member_id)
+where status = 'pending';
+create index admin_invitations_expires_at_idx on public.admin_invitations (expires_at);
+
 create index events_starts_at_idx on public.events (starts_at);
 create index events_status_idx on public.events (status);
 create index event_registrations_member_idx on public.event_registrations (member_id);
+create index event_registrations_event_idx on public.event_registrations (event_id);
 create index donations_created_at_idx on public.donations (created_at);
 create index donations_status_idx on public.donations (status);
+create index donations_currency_idx on public.donations (currency);
 
 create or replace function public.set_updated_at()
 returns trigger
@@ -105,6 +134,20 @@ for each row execute function public.set_updated_at();
 create trigger donations_set_updated_at
 before update on public.donations
 for each row execute function public.set_updated_at();
+
+create or replace function public.set_site_setting_updated_at()
+returns trigger
+language plpgsql
+as $$
+begin
+  new.updated_at = timezone('utc', now());
+  return new;
+end;
+$$;
+
+create trigger site_settings_set_updated_at
+before update on public.site_settings
+for each row execute function public.set_site_setting_updated_at();
 
 create or replace function public.handle_new_user()
 returns trigger
@@ -166,6 +209,8 @@ alter table public.events enable row level security;
 alter table public.event_registrations enable row level security;
 alter table public.media_assets enable row level security;
 alter table public.donations enable row level security;
+alter table public.site_settings enable row level security;
+alter table public.admin_invitations enable row level security;
 
 create policy "Members can view their own profile"
 on public.profiles for select
@@ -177,6 +222,11 @@ on public.profiles for update
 to authenticated
 using (id = auth.uid() or public.is_admin())
 with check (id = auth.uid() or public.is_admin());
+
+create policy "Admins can delete profiles"
+on public.profiles for delete
+to authenticated
+using (public.is_admin());
 
 create policy "Anyone can view published events"
 on public.events for select
@@ -205,6 +255,12 @@ to authenticated
 using (member_id = auth.uid() or public.is_admin())
 with check (member_id = auth.uid() or public.is_admin());
 
+create policy "Admins manage event registrations"
+on public.event_registrations for all
+to authenticated
+using (public.is_admin())
+with check (public.is_admin());
+
 create policy "Anyone can view published media"
 on public.media_assets for select
 to anon, authenticated
@@ -227,8 +283,30 @@ to authenticated
 using (public.is_admin())
 with check (public.is_admin());
 
+create policy "Anyone can view public site settings"
+on public.site_settings for select
+to anon, authenticated
+using (key in ('announcement_text', 'organization_name', 'contact_email', 'contact_phone', 'address', 'social_facebook', 'social_instagram'));
+
+create policy "Admins manage site settings"
+on public.site_settings for all
+to authenticated
+using (public.is_admin())
+with check (public.is_admin());
+
+create policy "Admins manage admin invitations"
+on public.admin_invitations for all
+to authenticated
+using (public.is_admin())
+with check (public.is_admin());
+
 grant usage on schema public to anon, authenticated;
 grant select on public.events, public.media_assets to anon, authenticated;
 grant select, update on public.profiles to authenticated;
 grant select, insert, update on public.event_registrations to authenticated;
-grant select on public.donations to authenticated;
+grant insert, update, delete on public.events to authenticated;
+grant insert, update, delete on public.media_assets to authenticated;
+grant select, update on public.donations to authenticated;
+grant select on public.site_settings to anon, authenticated;
+grant insert, update, delete on public.site_settings to authenticated;
+grant select, insert, update on public.admin_invitations to authenticated;
