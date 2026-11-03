@@ -176,7 +176,7 @@ export default function Page() {
     <main>
       <div className="announcement">
         <span>{announcement}</span>
-        <a href="#activities">
+        <a href="#events">
           View activities <ArrowRight size={14} />
         </a>
       </div>

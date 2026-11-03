@@ -145,8 +145,8 @@ export default function MemberPage() {
           <span className="portal-label">Member space</span>
           <a className="selected" href="/member"><CircleUserRound size={17} /> Overview</a>
           <a href="#events"><CalendarDays size={17} /> My events</a>
-          <a href="#alumni"><Users size={17} /> Alumni community</a>
-          <a href="#give"><Heart size={17} /> My giving</a>
+          <a href="/#alumni"><Users size={17} /> Alumni community</a>
+          <a href="/donate"><Heart size={17} /> My giving</a>
         </aside>
 
         <section className="portal-content">

@@ -20,9 +20,9 @@ export default async function AdminMembersPage() {
           <span className="portal-label">Manage</span>
           <a href="/admin">Overview</a>
           <a className="selected" href="/admin/members">Members &amp; alumni</a>
-          <a href="/admin#events">Events &amp; flyers</a>
-          <a href="/admin#media">Media carousel</a>
-          <a href="/admin#donations">Donations</a>
+          <a href="/admin/events">Events &amp; flyers</a>
+          <a href="/admin/media">Media carousel</a>
+          <a href="/admin/donations">Donations</a>
           <a href="/admin/settings">Settings</a>
         </aside>
         <section className="admin-content">
